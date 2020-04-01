@@ -5,7 +5,8 @@ from A_star_searcher import *
 grid_x, grid_y = 10, 10
 
 start_pt = (0,0)
-target_pt = (6,8)
+target_pt = (9,9)
+type = "diagonal"
 
 #1-start_pt, 2-target_pt, 3-obstacles
 map = np.zeros((grid_x, grid_y))
@@ -22,14 +23,16 @@ for x_id in range(grid_x):
             obs_x.append(x_id)
             obs_y.append(y_id)
 
-paths = A_star_search(start_pt, target_pt, map)
+a_star_searcher = AStarSearcher(start_pt, target_pt, map, type)
+path_xs, path_ys = a_star_searcher.get_path()
 
 offset = 0.5
-# draw map
+# plot results
 plt.figure()
 plt.plot(start_pt[0]+offset, start_pt[1]+offset, "r*")
 plt.plot(target_pt[0]+offset, target_pt[1]+offset, "b*")
 plt.plot(np.array(obs_x)+offset, np.array(obs_y)+offset, "ko")
+plt.plot(np.array(path_xs)+offset, np.array(path_ys)+offset, "g.")
 xticks = range(0, grid_x, 1)
 yticks = range(0, grid_y, 1)
 plt.xticks(xticks)
