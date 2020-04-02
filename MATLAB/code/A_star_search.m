@@ -1,6 +1,31 @@
-function path = A_star_search(map,MAX_X,MAX_Y)
+function path = A_star_search(map, start_pt, target_pt)
 %%
 %This part is about map/obstacle/and other settings
+    map_h = init_map_h(map, start_pt, target_pt);  % heuristic map
+    map_g = init_map_g(map, start_pt, target_pt);  % cost map
+    map_p = init_map_p(map, start_pt, target_pt);  % parents map
+    
+    start_idx = pt2idx(start_pt);
+    target_idx = pt2idx(target_pt);
+    
+    open_list = [];   % use map to denote open_list
+    close_list = [];  % use map to denote close list
+    
+    open_list = insert_open_list(start_idx, target_idx, open_list);
+    while (size(open_list, 1) > 0)
+        cur_idx = get_lowest_idx();
+        insert_close_list(cur_idx);
+        neighbors, done = get_neighbors(cur_idx);
+        if(~done)
+            for (neighbor=neighbors)
+                if ()
+                open_list = update_open_list(neighbor, open_list);
+            end
+        else
+            
+        end
+    end
+    
     %pre-process the grid map, add offset
     size_map = size(map,1);
     Y_offset = 0;
